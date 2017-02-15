@@ -1,0 +1,39 @@
+{
+    "name": "blast-project/doctrine-session-bundle",
+    "type": "symfony-bundle",
+    "description": "Store your Symfony sessions in database through doctrine",
+    "require": {
+        "php": "~5.5|~7.0",
+        "symfony/framework-bundle": "~2.8|~3.0",
+        "symfony/config": "~2.8|~3.0",
+        "symfony/http-kernel": "~2.8|~3.0",
+        "symfony/dependency-injection": "~2.8|~3.0"
+    },
+    "license": "LGPL-3.0",
+    "keywords": [
+        "e-venement",
+        "libio",
+        "symfony",
+        "doctrine",
+        "sonata admin"
+    ],
+    "homepage": "https://github.com/blast-project/BaseEntitiesBundle",
+    "authors": [
+        {
+            "name": "Romain SANCHEZ",
+            "email": "romain.sanchez@libre-informatique.fr"
+        },
+        {
+            "name": "Libre Informatique",
+            "homepage": "http://www.libre-informatique.fr/"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Blast\\DoctrineSessionBundle\\": ""
+        }
+    },
+    "suggest": {
+        "blast-project/core-bundle": "Define sonata admins in yml and more"
+    }
+}
