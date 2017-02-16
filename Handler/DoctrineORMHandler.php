@@ -11,7 +11,6 @@ use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * Class DoctrineORMHandler
- * 
  */
 class DoctrineORMHandler implements \SessionHandlerInterface
 {
@@ -29,10 +28,10 @@ class DoctrineORMHandler implements \SessionHandlerInterface
     /**
      * @param EntityManagerInterface $entityManager
      */
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, $sessionClass)
     {
         $this->entityManager = $entityManager;
-        $this->repository = $entityManager->getRepository('BlastDoctrineSessionBundle:Session');
+        $this->repository = $entityManager->getRepository($sessionClass);
     }
 
     /**
@@ -60,7 +59,7 @@ class DoctrineORMHandler implements \SessionHandlerInterface
             ->execute()
         ;
     }
-
+    
     /**
      * @inheritDoc
      */
@@ -69,8 +68,8 @@ class DoctrineORMHandler implements \SessionHandlerInterface
         $qb = $this->repository->createQueryBuilder('s');
             
         $qb->delete()
-            ->where($qb->expr()->lt('s.endOfLife', ':endOfLife'))
-            ->setParameter('endOfLife', new \DateTime())
+            ->where($qb->expr()->lt('s.expiresAt', ':now'))
+            ->setParameter('now', new \DateTime())
             ->getQuery()
             ->execute()
         ;
@@ -106,12 +105,12 @@ class DoctrineORMHandler implements \SessionHandlerInterface
      */
     public function write($sessionId, $sessionData)
     {
-        $maxlifetime = (int) ini_get('session.gc_maxlifetime');
+        $maxLifetime = (int) ini_get('session.gc_maxlifetime');
         $now = new \DateTime();
         $session = $this->getSession($sessionId);
         $expiry = new \DateTime();
         
-        $expiry->add(new \DateInterval('PT' . $maxlifetime . 'S'));
+        $expiry->add(new \DateInterval('PT' . $maxLifetime . 'S'));
 
         $session->setData($sessionData);
         $session->setUpdatedAt($now);
