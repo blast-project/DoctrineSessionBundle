@@ -1,0 +1,15 @@
+Blast\DoctrineSessionBundle\Entity\Session:
+    type: entity
+    table: sf_session
+    fields:
+        sessionId:
+            type: string
+            length: 255
+            column: session_id
+        data:
+            type: blob
+            nullable: true
+        expiresAt:
+            type: datetime
+            
+    lifecycleCallbacks: {  }
