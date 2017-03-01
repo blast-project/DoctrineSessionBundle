@@ -38,9 +38,7 @@ class DoctrineORMHandler implements \SessionHandlerInterface
      * @inheritDoc
      */
     public function close()
-    {
-        $this->entityManager->flush();
-        
+    {   
         return true;
     }
 
@@ -117,7 +115,7 @@ class DoctrineORMHandler implements \SessionHandlerInterface
         $session->setExpiresAt($expiry);
 
         $this->entityManager->persist($session);
-        $this->entityManager->flush();
+        $this->entityManager->flush($session);
         
         return true;
     }
