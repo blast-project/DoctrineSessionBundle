@@ -2,7 +2,7 @@
 services:
     blast_doctrine_session.handler.doctrine_orm:
         class: Blast\DoctrineSessionBundle\Handler\DoctrineORMHandler
-        arguments: [ @doctrine.orm.entity_manager, %blast_doctrine_session_class%]
+        arguments: ['@doctrine.orm.entity_manager', '%blast_doctrine_session_class%']
         
     blast_doctrine_handler:
         alias: blast_doctrine_session.handler.doctrine_orm
