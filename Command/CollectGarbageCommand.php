@@ -31,7 +31,8 @@ class CollectGarbageCommand extends ContainerAwareCommand
         
         $qb = $this
             ->getContainer()
-            ->get('doctrine.orm.entity_manager')
+            ->get('doctrine')
+            ->getManagerForClass($sessionClass)
             ->getRepository($sessionClass)
             ->createQueryBuilder('s')
             ->delete()
