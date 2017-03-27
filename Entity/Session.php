@@ -2,17 +2,15 @@
 
 namespace Blast\DoctrineSessionBundle\Entity;
 
-use Blast\BaseEntitiesBundle\Entity\Traits\BaseEntity;
-use Blast\BaseEntitiesBundle\Entity\Traits\Timestampable;
-
 /**
  * Session
  */
 class Session implements SessionInterface
-{
-    use BaseEntity,
-        Timestampable
-    ;
+{   
+    /**
+     * @var string
+     */
+    private $id;
     
     /**
      * @var string
@@ -25,12 +23,34 @@ class Session implements SessionInterface
     private $data;
     
     /**
+     * @var DateTime
+     */
+    private $createdAt = null;
+    
+    /**
      *
      * @var Datetime
      */
     private $expiresAt;
 
+    /**
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
+    /**
+     * @param string $id
+     * @return object  this Entity
+     */
+    public function setId($id)
+    {
+        $this->$id = $id;
+        return $this;
+    }
+    
     /**
      * Set sessionId
      *
@@ -75,6 +95,26 @@ class Session implements SessionInterface
     public function getData()
     {
         return $this->data;
+    }
+    
+    /**
+     * @return DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     *
+     * @return Timestampable
+     */
+    public function setCreatedAt(DateTime $createdAt)
+    {
+        $this->createdAt = $createdAt;
+        
+        return $this;
     }
     
     /**

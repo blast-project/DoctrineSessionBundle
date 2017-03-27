@@ -104,14 +104,12 @@ class DoctrineORMHandler implements \SessionHandlerInterface
     public function write($sessionId, $sessionData)
     {
         $maxLifetime = (int) ini_get('session.gc_maxlifetime');
-        $now = new \DateTime();
         $session = $this->getSession($sessionId);
         $expiry = new \DateTime();
         
         $expiry->add(new \DateInterval('PT' . $maxLifetime . 'S'));
 
         $session->setData($sessionData);
-        $session->setUpdatedAt($now);
         $session->setExpiresAt($expiry);
 
         $this->entityManager->persist($session);

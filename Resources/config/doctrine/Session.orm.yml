@@ -1,6 +1,11 @@
 Blast\DoctrineSessionBundle\Entity\Session:
     type: entity
     table: sf_session
+    id:
+        id:
+          type: integer
+          generator:
+            strategy: AUTO
     fields:
         sessionId:
             type: string
@@ -9,7 +14,11 @@ Blast\DoctrineSessionBundle\Entity\Session:
         data:
             type: blob
             nullable: true
+        createdAt: 
+            type: datetime
         expiresAt:
             type: datetime
-            
+    indexes:
+        session_id_index:
+            columns: [session_id]
     lifecycleCallbacks: {  }
