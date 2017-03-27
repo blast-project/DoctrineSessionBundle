@@ -7,7 +7,7 @@
 namespace Blast\DoctrineSessionBundle\Handler;
 
 use Blast\DoctrineSessionBundle\Entity\Session;
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * Class DoctrineORMHandler
@@ -28,10 +28,10 @@ class DoctrineORMHandler implements \SessionHandlerInterface
     /**
      * @param EntityManagerInterface $entityManager
      */
-    public function __construct(EntityManagerInterface $entityManager, $sessionClass)
+    public function __construct(ManagerRegistry $managerRegistry, $sessionClass)
     {
-        $this->entityManager = $entityManager;
-        $this->repository = $entityManager->getRepository($sessionClass);
+        $this->entityManager = $managerRegistry->getManagerForClass($sessionClass);
+        $this->repository = $this->entityManager->getRepository($sessionClass);
     }
 
     /**
