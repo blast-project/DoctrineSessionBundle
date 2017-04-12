@@ -6,12 +6,12 @@ namespace Blast\DoctrineSessionBundle\Entity;
  * Session
  */
 class Session implements SessionInterface
-{   
+{
     /**
      * @var string
      */
     private $id;
-    
+
     /**
      * @var string
      */
@@ -21,15 +21,14 @@ class Session implements SessionInterface
      * @var string
      */
     private $data;
-    
+
     /**
-     * @var DateTime
+     * @var \DateTime
      */
     private $createdAt = null;
-    
+
     /**
-     *
-     * @var Datetime
+     * @var \DateTime
      */
     private $expiresAt;
 
@@ -37,7 +36,7 @@ class Session implements SessionInterface
     {
         $this->createdAt = new \DateTime();
     }
-    
+
     /**
      * @return string
      */
@@ -55,7 +54,7 @@ class Session implements SessionInterface
         $this->$id = $id;
         return $this;
     }
-    
+
     /**
      * Set sessionId
      *
@@ -72,7 +71,7 @@ class Session implements SessionInterface
     /**
      * Get sessionId
      *
-     * @return string 
+     * @return string
      */
     public function getSessionId()
     {
@@ -95,15 +94,15 @@ class Session implements SessionInterface
     /**
      * Get data
      *
-     * @return string 
+     * @return string
      */
     public function getData()
     {
         return $this->data;
     }
-    
+
     /**
-     * @return DateTime
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -111,17 +110,17 @@ class Session implements SessionInterface
     }
 
     /**
-     * @param DateTime $createdAt
+     * @param \DateTime $createdAt
      *
      * @return Timestampable
      */
-    public function setCreatedAt(DateTime $createdAt)
+    public function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
-        
+
         return $this;
     }
-    
+
     /**
      * Set expiresAt
      *
@@ -138,7 +137,7 @@ class Session implements SessionInterface
     /**
      * Get expiresAt
      *
-     * @return string 
+     * @return string
      */
     public function getExpiresAt()
     {
