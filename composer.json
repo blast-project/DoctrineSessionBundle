@@ -9,6 +9,12 @@
         "symfony/http-kernel": "~2.8|~3.0",
         "symfony/dependency-injection": "~2.8|~3.0"
     },
+    "require-dev": {
+	"symfony/phpunit-bridge": "^2.7 || ^3.0",
+	"doctrine/doctrine-bundle": "^1.6",
+	"sonata-project/doctrine-orm-admin-bundle": "^3.1",
+	"blast-project/core-bundle": "dev-master"
+    },    
     "license": "LGPL-3.0",
     "keywords": [
         "symfony",
