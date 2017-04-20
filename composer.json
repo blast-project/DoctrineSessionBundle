@@ -27,7 +27,8 @@
     ],
     "autoload": {
         "psr-4": {
-            "Blast\\DoctrineSessionBundle\\": ""
+            "Blast\\DoctrineSessionBundle\\": "src/",
+            "Blast\\DoctrineSessionBundle\\Tests\\": "tests/"
         }
     },
     "suggest": {
