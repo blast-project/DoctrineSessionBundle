@@ -12,6 +12,8 @@ if (file_exists($file = __DIR__.'/autoload.php')) {
 } elseif (file_exists($file = __DIR__.'/autoload.php.dist')) {
     require_once $file;
 }
+
+
 // try to get Symfony's PHPunit Bridge
 $files = array_filter(array(
     __DIR__.'/../../vendor/symfony/symfony/src/Symfony/Bridge/PhpUnit/bootstrap.php',
@@ -19,4 +21,13 @@ $files = array_filter(array(
 ), 'file_exists');
 if ($files) {
     require_once current($files);
+}
+
+/*
+ * @todo find a way to launch it or not by configuration
+ */
+
+// prepare database if exists
+if (file_exists($file = __DIR__.'/prepare.database.php')) {
+    require_once $file;
 }
