@@ -12,7 +12,7 @@ use Doctrine\Bundle\DoctrineBundle\Command\Proxy\CreateSchemaDoctrineCommand;
  * @todo : check if we can do it in a composer script or something more simple
  */
 
-if (file_exists($file = __DIR__.'/App/AppKernel.php')) {
+if (file_exists($file = __DIR__.'/../Resources/App/AppKernel.php')) {
     require_once $file;
 
 
@@ -26,6 +26,7 @@ if (file_exists($file = __DIR__.'/App/AppKernel.php')) {
     $application->add($command);
     $input = new ArrayInput(array(
         'command' => 'doctrine:database:drop',
+        '--if-exists' => true,
         '--force' => true,
      ));
     $command->run($input, new ConsoleOutput());
@@ -35,6 +36,7 @@ if (file_exists($file = __DIR__.'/App/AppKernel.php')) {
     $application->add($command);
     $input = new ArrayInput(array(
         'command' => 'doctrine:database:create',
+        '--if-not-exists' => true,
     ));
     $command->run($input, new ConsoleOutput());
 
@@ -43,7 +45,7 @@ if (file_exists($file = __DIR__.'/App/AppKernel.php')) {
     $command = new CreateSchemaDoctrineCommand();
     $application->add($command);
     $input = new ArrayInput(array(
-    'command' => 'doctrine:schema:create',
+        'command' => 'doctrine:schema:create',
     ));
     $command->run($input, new ConsoleOutput());
 }

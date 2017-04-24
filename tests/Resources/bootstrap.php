@@ -22,12 +22,3 @@ $files = array_filter(array(
 if ($files) {
     require_once current($files);
 }
-
-/*
- * @todo find a way to launch it or not by configuration
- */
-
-// prepare database if exists
-if (file_exists($file = __DIR__.'/prepare.database.php')) {
-    require_once $file;
-}
