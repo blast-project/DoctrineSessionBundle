@@ -9,7 +9,8 @@ use Doctrine\Bundle\DoctrineBundle\Command\CreateDatabaseDoctrineCommand;
 use Doctrine\Bundle\DoctrineBundle\Command\Proxy\CreateSchemaDoctrineCommand;
 
 /*
- * @todo : check if we can do it in a composer script or something more simple
+ * 
+@todo : check if we can do it in a composer script or something more simple
  */
 
 if (file_exists($file = __DIR__.'/../Resources/App/AppKernel.php')) {

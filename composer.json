@@ -13,12 +13,47 @@
 	"symfony/phpunit-bridge": "^2.7 || ^3.0",
 	"doctrine/doctrine-bundle": "^1.6",
 	"sonata-project/doctrine-orm-admin-bundle": "^3.1",
-	"blast-project/core-bundle": "dev-master"
-    },    
+	"blast-project/core-bundle": "dev-master",
+	"phpunit/phpunit": "4.8.35|5.7.19|6.0.13",
+	"symfony/console": "~2.8|~3.0"
+    },
+    "scripts": {
+	"test": [
+	    "@test-doctrine-create",
+	    "phpunit"
+	],
+	"test-full": [
+	    "@composer install",
+	    "@test-mysql",
+	    "@test-sqlite",
+	    "@test-postgresql",
+	    "@test-doctrine-drop"
+	],
+	"test-doctrine-drop": [
+	    "bin/console doctrine:database:drop --if-exists --force"
+	],
+	"test-doctrine-create": [
+	    "@test-doctrine-drop",
+	    "bin/console doctrine:database:create --if-not-exists"
+	],
+	"test-mysql": [
+	    "php -r \"copy('tests/Resources/App/config/config_test_mysql.yml', 'tests/Resources/App/config/config_test.yml');\"",
+	    "@test"
+        ],
+	"test-postgresql": [
+	    "php -r \"copy('tests/Resources/App/config/config_test_postgresql.yml', 'tests/Resources/App/config/config_test.yml');\"",
+	    "@test"
+        ],
+	"test-sqlite": [
+	    "php -r \"copy('tests/Resources/App/config/config_test_sqlite.yml', 'tests/Resources/App/config/config_test.yml');\"",
+	    "@test"
+        ]
+    },
     "license": "LGPL-3.0",
     "keywords": [
         "symfony",
-        "doctrine"
+        "doctrine",
+	"blast"
     ],
     "homepage": "https://github.com/blast-project/BaseEntitiesBundle",
     "authors": [

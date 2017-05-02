@@ -30,21 +30,6 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
 
-# Doctrine Configuration
-doctrine:
-    dbal:
-        driver: pdo_pgsql
-#        driver: pdo_sqlite
-        host: '%database_host%'
-        port: '%database_port%'
-        dbname: '%database_name%'
-#        dbname: '%database_name%.db'
-        user: '%database_user%'
-        password: '%database_password%'
-        charset: UTF8
-    orm:
-        auto_mapping: true
-
 # Sonata
 sonata_block:
   default_contexts: [cms]

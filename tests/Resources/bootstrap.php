@@ -22,3 +22,8 @@ $files = array_filter(array(
 if ($files) {
     require_once current($files);
 }
+
+// try to get Blast Db for PHPunit 
+if (file_exists($file = __DIR__.'/App/BlastDatabaseTests.php')) {
+    require_once $file;
+}
