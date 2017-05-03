@@ -3,51 +3,14 @@
     "type": "symfony-bundle",
     "description": "Store your Symfony sessions in database through doctrine",
     "require": {
-	"php": "^5.6 || ^7.0",	
-	"symfony/symfony": "3.2.*",
+        "php": "~5.6|~7.0",
+        "symfony/symfony": "3.2.*",
 	"doctrine/doctrine-bundle": "^1.6"
-    },
-    "require-dev": {
-	"symfony/phpunit-bridge": "^2.7 || ^3.0",
-	"blast-project/core-bundle": "dev-master",
-    },
-    "scripts": {
-	"test": [
-	    "@test-doctrine-create",
-	    "phpunit"
-	],
-	"test-full": [
-	    "@composer install",
-	    "@test-mysql",
-	    "@test-sqlite",
-	    "@test-postgresql",
-	    "@test-doctrine-drop"
-	],
-	"test-doctrine-drop": [
-	    "bin/console doctrine:database:drop --if-exists --force"
-	],
-	"test-doctrine-create": [
-	    "@test-doctrine-drop",
-	    "bin/console doctrine:database:create --if-not-exists"
-	],
-	"test-mysql": [
-	    "php -r \"copy('tests/Resources/App/config/config_test_mysql.yml', 'tests/Resources/App/config/config_test.yml');\"",
-	    "@test"
-        ],
-	"test-postgresql": [
-	    "php -r \"copy('tests/Resources/App/config/config_test_postgresql.yml', 'tests/Resources/App/config/config_test.yml');\"",
-	    "@test"
-        ],
-	"test-sqlite": [
-	    "php -r \"copy('tests/Resources/App/config/config_test_sqlite.yml', 'tests/Resources/App/config/config_test.yml');\"",
-	    "@test"
-        ]
     },
     "license": "LGPL-3.0",
     "keywords": [
         "symfony",
-        "doctrine",
-	"blast"
+        "doctrine"
     ],
     "homepage": "https://github.com/blast-project/BaseEntitiesBundle",
     "authors": [
