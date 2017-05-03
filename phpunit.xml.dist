@@ -10,25 +10,26 @@
          stopOnFailure="false"
          syntaxCheck="false"
          bootstrap="tests/Resources/bootstrap.php"
-> 
+	 >
   
-<testsuites>
-  <testsuite name="Unit">
-    <directory>./tests/Unit</directory>
-  </testsuite>
-  <testsuite name="Functional">
-  <directory>./tests/Functional</directory>
- </testsuite>
-</testsuites>
-   
+  
+  <testsuites>
+    <testsuite name="Unit">
+      <directory>./tests/Unit</directory>
+    </testsuite>
+    <testsuite name="Functional">
+      <directory>./tests/Functional</directory>
+    </testsuite>
+  </testsuites>
+  
   
   <filter>
     <whitelist>
-      <directory>./</directory>
+      <directory>./src</directory>
       <exclude>
         <directory>./tests/</directory>
         <directory>./DataFixtures/</directory>
-        <directory>./Resources/</directory>
+        <directory>./src/Resources/</directory>
         <directory>./vendor/</directory>
         <directory>./coverage/</directory>
       </exclude>
