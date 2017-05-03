@@ -3,7 +3,7 @@
     "type": "symfony-bundle",
     "description": "Store your Symfony sessions in database through doctrine",
     "require": {
-        "php": "~5.6|~7.0",
+        "php": "^5.6 || ^7.0",
         "symfony/symfony": "3.2.*",
 	"doctrine/doctrine-bundle": "^1.6"
     },
