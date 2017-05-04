@@ -6,6 +6,6 @@
 
 [![Latest Stable Version](https://poser.pugx.org/blast-project/doctrine-session-bundle/v/stable)](https://packagist.org/packages/blast-project/doctrine-session-bundle)
 [![Latest Unstable Version](https://poser.pugx.org/blast-project/doctrine-session-bundle/v/unstable)](https://packagist.org/packages/blast-project/doctrine-session-bundle)
-[![Total Downloads](https://poser.pugx.org/blast-project/doctrine-session-bundle/downloads)](https://packagist.org/packages/blast-project/doctrine-pgsql-bundle)
+[![Total Downloads](https://poser.pugx.org/blast-project/doctrine-session-bundle/downloads)](https://packagist.org/packages/blast-project/doctrine-session-bundle)
 
 
