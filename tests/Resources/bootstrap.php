@@ -23,7 +23,7 @@ if ($files) {
     require_once current($files);
 }
 
-// try to get Blast Db for PHPunit 
-if (file_exists($file = __DIR__.'/App/BlastDatabaseTests.php')) {
+// try to get Blast for PHPunit 
+if (file_exists($file = __DIR__.'/App/BlastTests.php')) {
     require_once $file;
 }
