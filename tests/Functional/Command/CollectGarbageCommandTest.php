@@ -10,16 +10,7 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Input\ArrayInput;
 use Blast\DoctrineSessionBundle\Command\CollectGarbageCommand;
 
-/*
-// prepare database if exists
-$file = __DIR__.'/../prepare.database.php';
-#if (file_exists()) {
-    require_once $file;
-#}
-*/
-
-
-class CollectGarbageCommandTest extends BlastDatabaseTest
+class CollectGarbageCommandTest extends BlastTest
 {
     /**
      * @var CollectGarbageCommand
@@ -31,20 +22,22 @@ class CollectGarbageCommandTest extends BlastDatabaseTest
    
     protected function setUp()
     {
+        $this->dropDatabase();
         $this->createDatabase();
+        $this->createSchema();
+        
         //        parent::setUp();
         static::bootKernel();
+
+        /* Todo Should a Command Tools in Blast Test */
         $this->object = new CollectGarbageCommand();
         $this->application = new Application(self::$kernel);
         $this->application->add($this->object);
     }
     
-    /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
-     */
     protected function tearDown()
     {
+        $this->dropDatabase();
     }
 
     public function testCommand()
@@ -77,8 +70,6 @@ class CollectGarbageCommandTest extends BlastDatabaseTest
         
         $this->object->run($this->input, $this->output);
 
-
-        
         //        if (function_exists('xdebug_disable')) {
         //    xdebug_disable();
         //    var_dump($this->output);
