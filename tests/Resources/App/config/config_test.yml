@@ -4,12 +4,13 @@ imports:
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver: pdo_pgsql
+        driver: pdo_mysql
         host: 127.0.0.1
-        port: 5432
-        dbname: blast_test
-        user: blast_user_test
-        password: blast_password_test
+        port: null
+        dbname: travis
+        user: travis
+        password: ~
         charset: UTF8
     orm:
         auto_mapping: true
+

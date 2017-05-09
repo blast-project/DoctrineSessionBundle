@@ -7,9 +7,9 @@ doctrine:
         driver: pdo_mysql
         host: 127.0.0.1
         port: null
-        dbname: blast_test
-        user: root
-        password: root
+        dbname: travis
+        user: travis
+        password: ~
         charset: UTF8
     orm:
         auto_mapping: true
