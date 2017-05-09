@@ -8,9 +8,6 @@
 	"doctrine/doctrine-bundle": "^1.6"
     },
     "require-dev": {
-	"symfony/phpunit-bridge": "^2.7 || ^3.0"
-    },
-    "require-dev": {
 	"symfony/phpunit-bridge": "^2.7 || ^3.0",
 	"doctrine/doctrine-bundle": "^1.6",
 	"sonata-project/doctrine-orm-admin-bundle": "^3.1",
@@ -20,22 +17,13 @@
     },
     "scripts": {
 	"test": [
-	    "@test-doctrine-create",
 	    "phpunit"
 	],
 	"test-full": [
 	    "@composer install",
 	    "@test-mysql",
 	    "@test-sqlite",
-	    "@test-postgresql",
-	    "@test-doctrine-drop"
-	],
-	"test-doctrine-drop": [
-	    "bin/console doctrine:database:drop --if-exists --force"
-	],
-	"test-doctrine-create": [
-	    "@test-doctrine-drop",
-	    "bin/console doctrine:database:create --if-not-exists"
+	    "@test-postgresql"
 	],
 	"test-mysql": [
 	    "php -r \"copy('tests/Resources/App/config/config_test_mysql.yml', 'tests/Resources/App/config/config_test.yml');\"",
