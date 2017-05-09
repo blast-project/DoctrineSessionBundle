@@ -35,7 +35,6 @@ class BlastTest extends KernelTestCase
             '--force' => true,
         ));
         $command->run($input, new ConsoleOutput());
-        return 0;
     }
     
     protected function createDatabase()
@@ -49,7 +48,6 @@ class BlastTest extends KernelTestCase
             '--if-not-exists' => true,
         ));
         $command->run($input, new ConsoleOutput());
-        return 0;
     }
     
     protected function createSchema()
@@ -62,6 +60,17 @@ class BlastTest extends KernelTestCase
             'command' => 'doctrine:schema:create',
         ));
         $command->run($input, new ConsoleOutput());
-        return 0;
+    }
+
+    protected function validateSchema()
+    {
+        static::bootKernel();
+        $this->application = new Application(self::$kernel);
+        $command = new CreateSchemaDoctrineCommand();
+        $this->application->add($command);
+        $input = new ArrayInput(array(
+        'command' => 'doctrine:schema:validate',
+        ));
+        $command->run($input, new ConsoleOutput());
     }
 }
