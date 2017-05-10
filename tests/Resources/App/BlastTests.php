@@ -54,7 +54,15 @@ class BlastTest extends KernelTestCase
         //  var_dump($res);
     }
 
+    protected function cacheClear()
+    {
+        $this->launchCommand([
+            'command' => 'cache:clear',
+            '--no-warmup' => true
+        ]);
+    }
 
+    
     protected function dropDatabase()
     {
         $this->launchCommand([
