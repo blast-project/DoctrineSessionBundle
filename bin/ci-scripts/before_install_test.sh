@@ -10,4 +10,4 @@ sed --in-place "s/\"dev-master\":/\"dev-${TRAVIS_COMMIT}\":/" composer.json
 # Database creation
 # doto add db in a env variable and create the good one
 mysql -e 'CREATE DATABASE travis;'
-psql -c 'create database travis;' -U postgres
+#psql -c 'create database travis;' -U postgres
