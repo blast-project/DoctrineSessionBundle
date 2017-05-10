@@ -9,9 +9,8 @@ lint:
 
 test:
 	phpunit --version
-	#	composer test-mysql
-	#	composer test-postgresql
-	mysql -u travis -b travis -e 'SELECT DATABASE() FROM DUAL;' -v
+	composer test-mysql
+	composer test-postgresql
 	phpunit -c phpunit.xml.dist --coverage-clover build/logs/clover.xml
 
 docs:
