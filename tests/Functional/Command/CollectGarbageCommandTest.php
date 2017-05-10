@@ -22,9 +22,10 @@ class CollectGarbageCommandTest extends BlastTest
    
     protected function setUp()
     {
-        $this->dropDatabase();
+        $this->cacheClear();
         $this->createDatabase();
-        $this->createSchema();
+        $this->updateSchema();
+        $this->validateSchema();
         
         //        parent::setUp();
         static::bootKernel();

@@ -16,6 +16,7 @@ class SimpleBlastTest extends BlastTest
    
     protected function setUp()
     {
+        $this->cacheClear();
         $this->createDatabase();
         $this->updateSchema();
         $this->validateSchema();
