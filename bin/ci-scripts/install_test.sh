@@ -4,11 +4,13 @@ set -ev
 mkdir --parents "${HOME}/bin"
 
 # PHPUnit install
-if [ ${TRAVIS_PHP_VERSION} '<' '5.6' ]; then
-    PHPUNIT_PHAR=phpunit-4.8.phar
-else
+if [ ${TRAVIS_PHP_VERSION} '<' '7.0' ]; then
     PHPUNIT_PHAR=phpunit-5.7.phar
+else
+    # grr we don't want to use obsolete version
+    PHPUNIT_PHAR=phpunit.phar
 fi
+
 wget "https://phar.phpunit.de/${PHPUNIT_PHAR}" --output-document="${HOME}/bin/phpunit"
 chmod u+x "${HOME}/bin/phpunit"
 
