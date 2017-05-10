@@ -22,8 +22,11 @@ class CollectGarbageCommandTest extends BlastTest
    
     protected function setUp()
     {
-        $this->cacheClear();
         $this->createDatabase();
+        /*
+         * @todo: grrr cacheClear need the database...
+         */
+        $this->cacheClear();
         $this->updateSchema();
         $this->validateSchema();
         
