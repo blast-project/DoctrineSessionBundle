@@ -12,7 +12,8 @@ php:
 
 services:
   - mysql
-  
+  - postgresql
+    
 sudo: false
 
 cache:
