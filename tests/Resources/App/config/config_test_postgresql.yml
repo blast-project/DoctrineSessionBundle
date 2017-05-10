@@ -7,9 +7,9 @@ doctrine:
         driver: pdo_pgsql
         host: 127.0.0.1
         port: 5432
-        dbname: blast_test
-        user: blast_user_test
-        password: blast_password_test
+        dbname: travis
+        user: postgres
+        password: ~
         charset: UTF8
     orm:
         auto_mapping: true
