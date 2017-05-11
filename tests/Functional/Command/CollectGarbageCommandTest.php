@@ -22,7 +22,7 @@ class CollectGarbageCommandTest extends BlastTest
    
     protected function setUp()
     {
-        $this->createDatabase();
+        // $this->createDatabase();
         /*
          * @todo: grrr cacheClear need the database...
          */
@@ -41,7 +41,7 @@ class CollectGarbageCommandTest extends BlastTest
     
     protected function tearDown()
     {
-        $this->dropDatabase();
+        // $this->dropDatabase();
     }
 
     public function testCommand()
