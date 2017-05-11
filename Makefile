@@ -8,9 +8,6 @@ lint:
 	#find . -name '*.yml' -not -path './vendor/*' -not -path './Resources/public/vendor/*' | xargs yaml-lint
 
 test:
-	phpunit --version
-	composer test-mysql
-	composer test-postgresql
 	phpunit -c phpunit.xml.dist --coverage-clover build/logs/clover.xml
 
 docs:
