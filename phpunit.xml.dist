@@ -39,6 +39,8 @@
   <php>
     <server name="KERNEL_DIR" value="tests/Resources/App/" />
     <server name="IS_DOCTRINE_ORM_SUPPORTED" value="true" />
+    <ini name="display_errors" value="On" />
+    <ini name="display_startup_errors" value="On" />
   </php>
   
 </phpunit>
