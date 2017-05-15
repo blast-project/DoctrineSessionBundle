@@ -2,25 +2,58 @@
 
 namespace  Blast\DoctrineSessionBundle\Tests\Functional;
 
-use Blast\DoctrineSessionBundle\Handler\DoctrineORMHandler;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
+
+use Blast\DoctrineSessionBundle\Handler\DoctrineORMHandler;
+use Symfony\Component\HttpFoundation\Session\Session;
+
+/*
+ * @todo: check if Entity\Session why (it need to) implement SessionInterface
+use Blast\DoctrineSessionBundle\Entity\Session;
+*/
+
+/*
+ * for test on session implementation only
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeSessionHandler;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Component\HttpFoundation\Session\Storage\PhpBridgeSessionStorage;
+use Doctrine\ORM\Query\ResultSetMapping;
+*/
 
+use Doctrine\ORM\Query\ResultSetMapping;
+
+/**
+ * Needed as php allow only one session by process
+ * @runTestsInSeparateProcesses
+ */
 class SessionTest extends KernelTestCase
 {
     
     
-    // protected $entitymanager;
+    protected $entitymanager;
     protected $registrymanager;
     protected $sessionclass;
     protected $doctrinehandler;
     protected $session;
     
-    
+    protected function getArrayFromDb($sessionId)
+    {
+               /* to be able to get data from database */
+        $this->session->save();
+        //$this->entitymanager->clear();
+        //$this->entitymanager->flush();
+        
+        $query = $this->registrymanager->getRepository($this->sessionclass)
+               ->createQueryBuilder('s')
+               ->select()
+               ->where('s.sessionId = :session_id')
+               ->setParameter("session_id", $sessionId)
+               ->getQuery();
+
+        $arrayRes = $query->getArrayResult();
+        return $arrayRes;
+    }
     
     protected function setUp()
     {
@@ -32,10 +65,10 @@ class SessionTest extends KernelTestCase
          */
         
         $this->registrymanager = static::$kernel
-                                ->getContainer()
-                                ->get('doctrine');
+                        ->getContainer()
+                        ->get('doctrine');
         $this->entitymanager = $this->registrymanager
-                             ->getManager();
+                     ->getManager();
        
         $this->sessionclass = 'Blast\DoctrineSessionBundle\Entity\Session';
         
@@ -48,13 +81,11 @@ class SessionTest extends KernelTestCase
          * from NativeSessionStorage line 134
          */
 
-        
+       
         $this->storage = new NativeSessionStorage(['use_cookies' => false], $this->doctrinehandler);
 
-        //        $this->storage = new NativeSessionStorage(['use_cookies' => false], new NativeSessionHandler());
-        
+        //$this->storage = new NativeSessionStorage(['use_cookies' => false], new NativeSessionHandler());
         //$this->storage = new PhpBridgeSessionStorage();
-        
         //$this->storage = new MockArraySessionStorage();
 
         /*
@@ -62,60 +93,52 @@ class SessionTest extends KernelTestCase
          * should it test on new session if already created and set is started
          */
         $this->session = new Session($this->storage);
-
-        /*
-          if (!$this->session->isStarted()) {
-          $this->session->start();
-          }
-        */
+       
+        //        if (!$this->session->isStarted()) {
+        $this->session->start();
+        // }
     }
 
     public function tearDown()
     {
-        // session_destroy();
     }
 
 
-    public function testStart()
+    public function testIsStarted()
     {
-        /*  $this->assertTrue($this->session->isStarted()); */
+        /*
+         *@todo check if isStarted is well implemented
+         */
+        $this->assertTrue($this->session->isStarted());
     }
     
     
-    public function testSession()
+    public function testIsSessionInDB()
     {
-        //var_dump(session_status());
+        $array_res = $this->getArrayFromDb($this->session->getId());
  
-        //$session->destroy();
-        //        var_dump($_SESSION);
-        //var_dump($_SERVER);
+        //$this->assertEquals($this->session->getId(), $array_res[0]['sessionId']);
+        $this->assertArrayHasKey('createdAt', $array_res[0]);
+        $this->assertArrayHasKey('expiresAt', $array_res[0]);
+        $this->assertArraySubset(['sessionId' => $this->session->getId()], $array_res[0]);
 
-        //        var_dump($session->getId());
-        // set and get session attributes
-        //$session->set('foo', 'bar');
-        // $session->get('foo');
-        
-        // set flash messages
-        // $session->getFlashBag()->add('zoo', 'far');
-        // sleep(10);
-        //        $session->destroy($session->getId());
-        
-        //        var_dump(session_status());
-        // var_dump($this->storage->getSaveHandler()->isActive());
-        // var_dump($session->isStarted());
-        
-        //$session->clear();
-    }
+        //         var_dump($array_res);
 
-  
-    public function testSession2()
-    {
-        //$session = new Session($this->storage);
-        //if (session_status() !== PHP_SESSION_ACTIVE) {
-        //    $session->start();
-        //}
+        /*
+          if (function_exists('xdebug_disable')) {
+          xdebug_disable();
+          var_dump($query->getArrayResult());
+          }
+        */
         
-        ///var_dump($session->getId());
+        /*
+          $session_db_line = $this
+          ->entitymanager
+          ->getRepository($this->sessionclass)
+          ->findBy(array('sessionId' => $this->session->getId()));
+          
+          var_dump($session_db_line);
+        */
     }
 
     public function testInvalidate()
@@ -129,9 +152,7 @@ class SessionTest extends KernelTestCase
     {
         /*   var_dump($this->session->getMetadataBag()->getLifetime()); */
     }
-    /**
-     * @depends testStart
-     */
+   
     public function testClear()
     {
         $this->session->set('foo', 'bar');
