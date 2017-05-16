@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Blast\DoctrineSessionBundle\Entity\Session;
 */
 
-/*
+/**
  * for test on session implementation only
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeSessionHandler;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
@@ -37,70 +37,50 @@ class SessionTest extends KernelTestCase
     protected $doctrinehandler;
     protected $session;
     protected $sessionid;
-    
-    protected function getArrayFromDb($sessionId)
-    {
-               /* to be able to get data from database */
-        $this->session->save();
-        //$this->entitymanager->clear();
-        //$this->entitymanager->flush();
-        
-        $query = $this->registrymanager->getRepository($this->sessionclass)
-               ->createQueryBuilder('s')
-               ->select()
-               ->where('s.sessionId = :session_id')
-               ->setParameter("session_id", $sessionId)
-               ->getQuery();
-
-        $arrayRes = $query->getArrayResult();
-        return $arrayRes;
-    }
+    protected $lifetime;
     
     protected function setUp()
     {
         static::bootKernel();
-        /*
-         * SELECT table_name FROM information_schema.tables where TABLE_SCHEMA='travis' 
+        /**
+         * SELECT table_name FROM information_schema.tables where TABLE_SCHEMA='travis'
          *  select * from sf_session
-         *  @todo: get result from database to check if session exist 
+         *  @todo: get result from database to check if session exist
          */
         
         $this->registrymanager = static::$kernel
-                        ->getContainer()
-                        ->get('doctrine');
+                ->getContainer()
+                ->get('doctrine');
         $this->entitymanager = $this->registrymanager
-                     ->getManager();
+             ->getManager();
        
         $this->sessionclass = 'Blast\DoctrineSessionBundle\Entity\Session';
         
         $this->doctrinehandler = new DoctrineORMHandler($this->registrymanager, $this->sessionclass);
-
         
-        /*
+        /**
          * Need to disable cookies to avoid error
          * RuntimeException: Failed to start the session because headers have already been sent...
          * from NativeSessionStorage line 134
+         * bug without the phpunit  --process-isolation
          */
-
-       
-        $this->storage = new NativeSessionStorage(['use_cookies' => false], $this->doctrinehandler);
-
+        //$this->storage = new NativeSessionStorage(['use_cookies' => false], $this->doctrinehandler);
         //$this->storage = new NativeSessionStorage(['use_cookies' => false], new NativeSessionHandler());
         //$this->storage = new PhpBridgeSessionStorage();
         //$this->storage = new MockArraySessionStorage();
+        
 
-        /*
-         * @todo: check if there is a bug without the phpunit  --process-isolation 
-         * should it test on new session if already created and set is started
-         */
+        $this->lifetime = 1;
+        $this->storage = new NativeSessionStorage(array(), $this->doctrinehandler);
+
+        $this->storage->setOptions(array(
+            'cookie_lifetime' => $this->lifetime, // for metabag
+            'gc_maxlifetime' =>  $this->lifetime // for gc
+        ));
         $this->session = new Session($this->storage);
-       
-        //        if (!$this->session->isStarted()) {
-        //      if (!$this->storage->isStarted()) {
+      
         $this->session->start();
         $this->sessionid = $this->session->getId();
-
-        // }
     }
 
     public function tearDown()
@@ -110,52 +90,51 @@ class SessionTest extends KernelTestCase
 
     public function testIsStarted()
     {
-        /*
-         *@todo check if isStarted is well implemented
+        /**
+         *@todo check if session->isStarted is well implemented
          */
         $this->assertTrue($this->session->isStarted());
+        $this->assertTrue($this->storage->isStarted());
     }
     
     
     public function testIsSessionInDB()
     {
-        $array_res = $this->getArrayFromDb($this->sessionid);
+        $dbRes = $this->getArrayFromDb($this->sessionid);
  
-        //$this->assertEquals($this->session->getId(), $array_res[0]['sessionId']);
-        $this->assertArrayHasKey('createdAt', $array_res[0]);
-        $this->assertArrayHasKey('expiresAt', $array_res[0]);
-        $this->assertArraySubset(['sessionId' => $this->sessionid], $array_res[0]);
-
-        //         var_dump($array_res);
-
-        /*
-          if (function_exists('xdebug_disable')) {
-          xdebug_disable();
-          var_dump($query->getArrayResult());
-          }
-        */
-        
-        /*
-          $session_db_line = $this
-          ->entitymanager
-          ->getRepository($this->sessionclass)
-          ->findBy(array('sessionId' => $this->sessionid));
-          
-          var_dump($session_db_line);
-        */
+        //$this->assertEquals($this->session->getId(), $dbRes[0]['sessionId']);
+        $this->assertArrayHasKey('createdAt', $dbRes[0]);
+        $this->assertArrayHasKey('expiresAt', $dbRes[0]);
+        $this->assertArraySubset(['sessionId' => $this->sessionid], $dbRes[0]);
     }
 
+ 
     public function testInvalidate()
     {
-        /*
-         * @todo: invalidate should work
-         * $this->session->invalidate();
+        /**
+         * @todo: check why invalidate failed with recent php
+         *  due to session_regenerate_id(true);
+         *
          */
+        $this->markTestSkipped(
+            'work only with php 5.6'
+        );
+        $this->assertEquals($this->sessionid, $this->session->getId());
+        $this->session->invalidate();
+        $this->assertNotEquals($this->sessionid, $this->session->getId());
     }
+
+    public function testMigrate()
+    {
+        $this->assertEquals($this->sessionid, $this->session->getId());
+        $this->session->migrate();
+        $this->assertNotEquals($this->sessionid, $this->session->getId());
+    }
+
+    
     public function testLifetime()
     {
-        //   var_dump($this->session->getMetadataBag()->getLifetime());
-        // var_dump($this->session->getMetadataBag());
+        $this->assertEquals($this->lifetime, $this->session->getMetadataBag()->getLifetime());
     }
    
     public function testClearSession()
@@ -177,14 +156,21 @@ class SessionTest extends KernelTestCase
 
     public function testGc()
     {
-        /*
+        $this->assertCount(1, $this->getArrayFromDb($this->sessionid));
+        /**
+         *   @warning: test may take a lot of time
+         * used to be sure session has expired
+         */
+        sleep($this->lifetime + 2);
+        // One more
+        //        sleep(1);
+
+        /**
          * @todo : check if param is used or not
          */
-        //    $this->session->setExpiresAt(new \DateTime());
-        /*        var_dump($this->getArrayFromDb($this->sessionid));
-               $this->doctrinehandler->gc(0);
-        var_dump($this->getArrayFromDb($this->sessionid));
-        */
+        $this->doctrinehandler->gc(0);
+
+        $this->assertCount(0, $this->getArrayFromDb($this->sessionid));
     }
 
     public function testDestroy()
@@ -192,5 +178,23 @@ class SessionTest extends KernelTestCase
         $this->assertCount(1, $this->getArrayFromDb($this->sessionid));
         $this->doctrinehandler->destroy($this->sessionid);
         $this->assertCount(0, $this->getArrayFromDb($this->sessionid));
+    }
+
+    protected function getArrayFromDb($sessionId)
+    {
+        /* to be able to get data from database */
+        $this->session->save();
+        //$this->entitymanager->clear();
+        //$this->entitymanager->flush();
+        
+        $query = $this->registrymanager->getRepository($this->sessionclass)
+               ->createQueryBuilder('s')
+               ->select()
+               ->where('s.sessionId = :session_id')
+               ->setParameter("session_id", $sessionId)
+               ->getQuery();
+        
+        $arrayRes = $query->getArrayResult();
+        return $arrayRes;
     }
 }
