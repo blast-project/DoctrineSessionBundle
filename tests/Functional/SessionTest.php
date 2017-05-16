@@ -36,6 +36,7 @@ class SessionTest extends KernelTestCase
     protected $sessionclass;
     protected $doctrinehandler;
     protected $session;
+    protected $sessionid;
     
     protected function getArrayFromDb($sessionId)
     {
@@ -95,7 +96,10 @@ class SessionTest extends KernelTestCase
         $this->session = new Session($this->storage);
        
         //        if (!$this->session->isStarted()) {
+        //      if (!$this->storage->isStarted()) {
         $this->session->start();
+        $this->sessionid = $this->session->getId();
+
         // }
     }
 
@@ -115,12 +119,12 @@ class SessionTest extends KernelTestCase
     
     public function testIsSessionInDB()
     {
-        $array_res = $this->getArrayFromDb($this->session->getId());
+        $array_res = $this->getArrayFromDb($this->sessionid);
  
         //$this->assertEquals($this->session->getId(), $array_res[0]['sessionId']);
         $this->assertArrayHasKey('createdAt', $array_res[0]);
         $this->assertArrayHasKey('expiresAt', $array_res[0]);
-        $this->assertArraySubset(['sessionId' => $this->session->getId()], $array_res[0]);
+        $this->assertArraySubset(['sessionId' => $this->sessionid], $array_res[0]);
 
         //         var_dump($array_res);
 
@@ -135,7 +139,7 @@ class SessionTest extends KernelTestCase
           $session_db_line = $this
           ->entitymanager
           ->getRepository($this->sessionclass)
-          ->findBy(array('sessionId' => $this->session->getId()));
+          ->findBy(array('sessionId' => $this->sessionid));
           
           var_dump($session_db_line);
         */
@@ -150,14 +154,43 @@ class SessionTest extends KernelTestCase
     }
     public function testLifetime()
     {
-        /*   var_dump($this->session->getMetadataBag()->getLifetime()); */
+        //   var_dump($this->session->getMetadataBag()->getLifetime());
+        // var_dump($this->session->getMetadataBag());
     }
    
-    public function testClear()
+    public function testClearSession()
     {
         $this->session->set('foo', 'bar');
         $this->assertEquals('bar', $this->session->get('foo'));
         $this->session->clear();
         $this->assertNull($this->session->get('foo'));
+    }
+
+    public function testClearStorage()
+    {
+        $this->session->set('foo', 'bar');
+        $this->assertEquals('bar', $this->session->get('foo'));
+        $this->storage->clear();
+        $this->assertNull($this->session->get('foo'));
+    }
+
+
+    public function testGc()
+    {
+        /*
+         * @todo : check if param is used or not
+         */
+        //    $this->session->setExpiresAt(new \DateTime());
+        /*        var_dump($this->getArrayFromDb($this->sessionid));
+               $this->doctrinehandler->gc(0);
+        var_dump($this->getArrayFromDb($this->sessionid));
+        */
+    }
+
+    public function testDestroy()
+    {
+        $this->assertCount(1, $this->getArrayFromDb($this->sessionid));
+        $this->doctrinehandler->destroy($this->sessionid);
+        $this->assertCount(0, $this->getArrayFromDb($this->sessionid));
     }
 }
