@@ -23,7 +23,7 @@ class CollectGarbageCommandTest extends BlastTest
     protected function setUp()
     {
         // $this->createDatabase();
-        /*
+        /**
          * @todo: grrr cacheClear need the database...
          */
         $this->cacheClear();
@@ -39,7 +39,7 @@ class CollectGarbageCommandTest extends BlastTest
         $this->application->add($this->object);
 
 
-        /*
+        /**
          * @todo: need a simple way to add session and check if it is well garbaged
         */
         $this->markTestSkipped(
@@ -54,7 +54,7 @@ class CollectGarbageCommandTest extends BlastTest
 
     public function testCommand()
     {
-        /*
+        /**
          * @todo : should add some session before purge test
          * @todo should find a way to test all availlable option
          */
@@ -68,7 +68,7 @@ class CollectGarbageCommandTest extends BlastTest
         $this->object->run($this->input, $this->output);
 
 
-        /*
+        /**
          * @todo : should check if there are session in database or not
          */
 
