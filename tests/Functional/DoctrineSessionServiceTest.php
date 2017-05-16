@@ -7,7 +7,6 @@ use Symfony\Component\DependencyInjection\Container;
 
 class BlastDoctrineSessionServiceTest extends KernelTestCase
 {
-    
     protected $container;
     
     protected function setUp()
@@ -20,7 +19,6 @@ class BlastDoctrineSessionServiceTest extends KernelTestCase
     
     public function testServicesAreInitializable()
     {
-        
         $serviceIds = array_filter($this->container->getServiceIds(), function ($serviceId) {
             return 0 === strpos($serviceId, ' blast_doctrine');
         });

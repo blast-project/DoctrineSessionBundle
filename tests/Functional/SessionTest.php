@@ -8,17 +8,17 @@ use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 use Blast\DoctrineSessionBundle\Handler\DoctrineORMHandler;
 use Symfony\Component\HttpFoundation\Session\Session;
 
-/*
+/**
  * @todo: check if Entity\Session why (it need to) implement SessionInterface
-use Blast\DoctrineSessionBundle\Entity\Session;
+ use Blast\DoctrineSessionBundle\Entity\Session;
 */
 
 /**
  * for test on session implementation only
-use Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeSessionHandler;
-use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
-use Symfony\Component\HttpFoundation\Session\Storage\PhpBridgeSessionStorage;
-use Doctrine\ORM\Query\ResultSetMapping;
+ use Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeSessionHandler;
+ use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
+ use Symfony\Component\HttpFoundation\Session\Storage\PhpBridgeSessionStorage;
+ use Doctrine\ORM\Query\ResultSetMapping;
 */
 
 use Doctrine\ORM\Query\ResultSetMapping;
@@ -29,8 +29,6 @@ use Doctrine\ORM\Query\ResultSetMapping;
  */
 class SessionTest extends KernelTestCase
 {
-    
-    
     protected $entitymanager;
     protected $registrymanager;
     protected $sessionclass;
@@ -49,13 +47,12 @@ class SessionTest extends KernelTestCase
          */
         
         $this->registrymanager = static::$kernel
-                ->getContainer()
-                ->get('doctrine');
+                               ->getContainer()
+                               ->get('doctrine');
         $this->entitymanager = $this->registrymanager
-             ->getManager();
+                             ->getManager();
        
         $this->sessionclass = 'Blast\DoctrineSessionBundle\Entity\Session';
-        
         $this->doctrinehandler = new DoctrineORMHandler($this->registrymanager, $this->sessionclass);
         
         /**
@@ -68,17 +65,17 @@ class SessionTest extends KernelTestCase
         //$this->storage = new NativeSessionStorage(['use_cookies' => false], new NativeSessionHandler());
         //$this->storage = new PhpBridgeSessionStorage();
         //$this->storage = new MockArraySessionStorage();
-        
 
         $this->lifetime = 1;
-        $this->storage = new NativeSessionStorage(array(), $this->doctrinehandler);
-
+        $this->storage = new NativeSessionStorage(
+            array(),
+            $this->doctrinehandler
+        );
         $this->storage->setOptions(array(
             'cookie_lifetime' => $this->lifetime, // for metabag
             'gc_maxlifetime' =>  $this->lifetime // for gc
         ));
         $this->session = new Session($this->storage);
-      
         $this->session->start();
         $this->sessionid = $this->session->getId();
     }
@@ -86,7 +83,6 @@ class SessionTest extends KernelTestCase
     public function tearDown()
     {
     }
-
 
     public function testIsStarted()
     {
@@ -97,17 +93,14 @@ class SessionTest extends KernelTestCase
         $this->assertTrue($this->storage->isStarted());
     }
     
-    
     public function testIsSessionInDB()
     {
         $dbRes = $this->getArrayFromDb($this->sessionid);
- 
         //$this->assertEquals($this->session->getId(), $dbRes[0]['sessionId']);
         $this->assertArrayHasKey('createdAt', $dbRes[0]);
         $this->assertArrayHasKey('expiresAt', $dbRes[0]);
         $this->assertArraySubset(['sessionId' => $this->sessionid], $dbRes[0]);
     }
-
  
     public function testInvalidate()
     {
@@ -130,11 +123,13 @@ class SessionTest extends KernelTestCase
         $this->session->migrate();
         $this->assertNotEquals($this->sessionid, $this->session->getId());
     }
-
     
     public function testLifetime()
     {
-        $this->assertEquals($this->lifetime, $this->session->getMetadataBag()->getLifetime());
+        $this->assertEquals(
+            $this->lifetime,
+            $this->session->getMetadataBag()->getLifetime()
+        );
     }
    
     public function testClearSession()
@@ -153,7 +148,6 @@ class SessionTest extends KernelTestCase
         $this->assertNull($this->session->get('foo'));
     }
 
-
     public function testGc()
     {
         $this->assertCount(1, $this->getArrayFromDb($this->sessionid));
@@ -169,7 +163,6 @@ class SessionTest extends KernelTestCase
          * @todo : check if param is used or not
          */
         $this->doctrinehandler->gc(0);
-
         $this->assertCount(0, $this->getArrayFromDb($this->sessionid));
     }
 
@@ -186,7 +179,7 @@ class SessionTest extends KernelTestCase
         $this->session->save();
         //$this->entitymanager->clear();
         //$this->entitymanager->flush();
-        
+
         $query = $this->registrymanager->getRepository($this->sessionclass)
                ->createQueryBuilder('s')
                ->select()

@@ -16,7 +16,6 @@ class ConfigurationTest extends TestCase
 
     protected function setUp()
     {
-    
         $this->object = new Configuration();
     }
 
@@ -30,7 +29,10 @@ class ConfigurationTest extends TestCase
     public function testGetConfigTreeBuilder()
     {
         $this->testtree = $this->object->getConfigTreeBuilder();
-        $this->assertInstanceOf('Symfony\Component\Config\Definition\Builder\TreeBuilder', $this->testtree);
+        $this->assertInstanceOf(
+            'Symfony\Component\Config\Definition\Builder\TreeBuilder',
+            $this->testtree
+        );
         /**
          * @TODO maybe we need to add a test of root name or some other content
          */
