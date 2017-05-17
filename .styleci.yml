@@ -20,7 +20,7 @@ enabled:
 
 disabled:
 #  - phpdoc_inline_tag
-  - concat_without_spaces
+#  - concat_without_spaces
 
 finder:
   exclude:
