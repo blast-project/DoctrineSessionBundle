@@ -59,6 +59,11 @@
             "Blast\\DoctrineSessionBundle\\Tests\\": "tests/"
         }
     },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.4.x-dev"
+        }
+    },
     "suggest": {
         "blast-project/core-bundle": "Define sonata admins in yml and more"
     }
