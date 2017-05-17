@@ -19,7 +19,7 @@ enabled:
 #  - php_unit_strict
 
 disabled:
-  - phpdoc_inline_tag
+#  - phpdoc_inline_tag
   - concat_without_spaces
 
 finder:
