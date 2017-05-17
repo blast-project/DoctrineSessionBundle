@@ -6,4 +6,3 @@ set -ev
 
 composer self-update
 sed --in-place "s/\"dev-master\":/\"dev-${TRAVIS_COMMIT}\":/" composer.json
-
