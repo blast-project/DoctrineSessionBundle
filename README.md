@@ -9,3 +9,75 @@
 [![Total Downloads](https://poser.pugx.org/blast-project/doctrine-session-bundle/downloads)](https://packagist.org/packages/blast-project/doctrine-session-bundle)
 
 
+
+The goal of this bundle is to make the use of Doctrine as session handler for Symfony
+
+Installation
+============
+
+Downloading
+-----------
+
+  $ composer require blast-project/doctrine-session-bundle
+
+
+Add to your AppKernel
+---------------------
+
+```php
+//...
+
+class AppKernel extends Kernel
+{
+    public function registerBundles()
+    {
+        $bundles = [
+            //...
+
+            new Blast\DoctrineSessionBundle\BlastDoctrineSessionBundle(),
+
+        ];
+        //...
+    }
+    //...
+}
+```
+
+Database
+--------
+
+  $ php bin/console doctrine:database:create
+
+Or
+
+  $ php bin/console doctrine:schema:update --force
+
+Usage
+-----
+```php
+
+use Blast\DoctrineSessionBundle\Handler\DoctrineORMHandler;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
+
+//...
+
+        $doctrinehandler = new DoctrineORMHandler(
+                         $this->get('doctrine'),
+                         'Blast\DoctrineSessionBundle\Entity\Session');
+
+        $storage = new NativeSessionStorage(
+                 array(),
+                 $doctrinehandler
+        );
+
+        $session = new Session($storage);
+        $session->start();
+//...
+
+```
+
+See
+---
+
+http://symfony.com/doc/current/components/http_foundation/session_configuration.html
