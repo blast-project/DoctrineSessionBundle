@@ -18,8 +18,7 @@ class CollectGarbageCommand extends ContainerAwareCommand
             ->setName('blast:session:collect-garbage')
             ->setDescription('Deletes sessions older.')
             ->addOption('all', 'a', InputOption::VALUE_NONE, 'Will clear ALL sessions')
-            ->addArgument('limit', InputArgument::OPTIONAL, 'Sessions expired {limit} ago will be removed. (examples: 1 hour, 5 days)')
-        ;       
+            ->addArgument('limit', InputArgument::OPTIONAL, 'Sessions expired {limit} ago will be removed. (examples: 1 hour, 5 days)');
     }
     
     /**
@@ -38,10 +37,10 @@ class CollectGarbageCommand extends ContainerAwareCommand
             ->delete()
         ;
         
-        if( !$input->getOption('all') )
-        {
-            if( empty($input->getArgument('limit')) )
+        if (!$input->getOption('all')) {
+            if (empty($input->getArgument('limit'))) {
                 $input->setArgument('limit', '1 hour');
+            }
             
             $limit = new \DateTime();
             $limit->sub(\DateInterval::createFromDateString($input->getArgument('limit')));
