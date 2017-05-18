@@ -4,7 +4,7 @@ namespace Blast\DoctrineSessionBundle\Entity;
 
 interface SessionInterface
 {
-   /**
+    /**
      * Set sessionId
      *
      * @param string $sessionId
@@ -15,7 +15,7 @@ interface SessionInterface
     /**
      * Get sessionId
      *
-     * @return string 
+     * @return string
      */
     public function getSessionId();
 
@@ -30,7 +30,7 @@ interface SessionInterface
     /**
      * Get data
      *
-     * @return string 
+     * @return string
      */
     public function getData();
     
@@ -45,7 +45,7 @@ interface SessionInterface
     /**
      * Get expiresAt
      *
-     * @return string 
+     * @return string
      */
     public function getExpiresAt();
 }

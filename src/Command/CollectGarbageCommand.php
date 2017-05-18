@@ -35,7 +35,7 @@ class CollectGarbageCommand extends ContainerAwareCommand
             ->getRepository($sessionClass)
             ->createQueryBuilder('s')
             ->delete()
-        ;
+            ;
         
         if (!$input->getOption('all')) {
             if (empty($input->getArgument('limit'))) {
@@ -48,12 +48,12 @@ class CollectGarbageCommand extends ContainerAwareCommand
             $qb
                 ->where($qb->expr()->lt('s.expiresAt', ':limit'))
                 ->setParameter('limit', $limit)
-            ;
+                ;
         }
             
         $qb
             ->getQuery()
             ->execute()
-        ;
+            ;
     }
 }

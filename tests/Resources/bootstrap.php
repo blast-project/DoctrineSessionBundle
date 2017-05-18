@@ -1,7 +1,7 @@
 <?php
 /*
  * This file is part of the Blast Project package.
- * 
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -23,7 +23,7 @@ if ($files) {
     require_once current($files);
 }
 
-// try to get Blast for PHPunit 
+// try to get Blast for PHPunit
 if (file_exists($file = __DIR__.'/App/BlastTests.php')) {
     require_once $file;
 }

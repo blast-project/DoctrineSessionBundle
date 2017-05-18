@@ -15,7 +15,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 class DoctrineORMHandler implements \SessionHandlerInterface
 {
     /**
-     * @var EntityManagerInterface 
+     * @var EntityManagerInterface
      */
     protected $entityManager;
     
@@ -38,7 +38,7 @@ class DoctrineORMHandler implements \SessionHandlerInterface
      * @inheritDoc
      */
     public function close()
-    {   
+    {
         return true;
     }
 
@@ -55,7 +55,7 @@ class DoctrineORMHandler implements \SessionHandlerInterface
             ->setParameter('sessionId', $sessionId)
             ->getQuery()
             ->execute()
-        ;
+            ;
     }
     
     /**
@@ -70,7 +70,7 @@ class DoctrineORMHandler implements \SessionHandlerInterface
             ->setParameter('now', new \DateTime())
             ->getQuery()
             ->execute()
-        ;
+            ;
         
         return true;
     }
@@ -90,8 +90,9 @@ class DoctrineORMHandler implements \SessionHandlerInterface
     {
         $session = $this->getSession($sessionId);
         
-        if ( !$session || is_null($session->getData()) )
+        if (!$session || is_null($session->getData())) {
             return '';
+        }
         
         $resource = $session->getData();
         
@@ -144,10 +145,10 @@ class DoctrineORMHandler implements \SessionHandlerInterface
             'sessionId' => $sessionId
         ]);
         
-        if ( !$session )
+        if (!$session) {
             $session = $this->getNewInstance($sessionId);
+        }
         
         return $session;
     }
-
 }
