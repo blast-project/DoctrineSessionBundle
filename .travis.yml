@@ -1,7 +1,3 @@
-branches:
-  only:
-    - master
-    
 language: php
 
 php:
@@ -13,7 +9,7 @@ php:
 services:
   - mysql
   - postgresql
-    
+  
 sudo: false
 
 cache:
@@ -46,11 +42,10 @@ matrix:
 
 before_install:
   - git remote add upstream ${UPSTREAM_URL} && git fetch --all
-#  - if [[ -x ${SCRIPTS_FOLDER}/check_relevant_${TARGET}.sh && "$TRAVIS_PULL_REQUEST" != "false" ]]; then export RELEVANT=$(${SCRIPTS_FOLDER}/check_relevant_${TARGET}.sh); fi;
-#  - if [[ ! -z ${RELEVANT} ]];then exit 0; fi;
-  - if [ -x ${SCRIPTS_FOLDER}/create_travis_database_${TARGET}.sh ]; then ${SCRIPTS_FOLDER}/create_travis_database_${TARGET}.sh; fi;
+  - if [[ -x ${SCRIPTS_FOLDER}/check_relevant_${TARGET}.sh && "$TRAVIS_PULL_REQUEST" != "false" ]]; then export RELEVANT=$(${SCRIPTS_FOLDER}/check_relevant_${TARGET}.sh); fi;
+  - if [[ ! -z ${RELEVANT} ]];then exit 0; fi;
   - if [ -x ${SCRIPTS_FOLDER}/before_install_${TARGET}.sh ]; then ${SCRIPTS_FOLDER}/before_install_${TARGET}.sh; fi;
-
+  - if [ -x ${SCRIPTS_FOLDER}/create_travis_database_${TARGET}.sh ]; then ${SCRIPTS_FOLDER}/create_travis_database_${TARGET}.sh; fi;
   
 install:
   - if [ -x ${SCRIPTS_FOLDER}/install_${TARGET}.sh ]; then ${SCRIPTS_FOLDER}/install_${TARGET}.sh; fi;
@@ -58,9 +53,7 @@ install:
 before_script:
   - if [ -x ${SCRIPTS_FOLDER}/before_script_${TARGET}.sh ]; then ${SCRIPTS_FOLDER}/before_script_${TARGET}.sh; fi;
 
-script:
-  - if [ -x ${SCRIPTS_FOLDER}/script_${TARGET}.sh ]; then ${SCRIPTS_FOLDER}/script_${TARGET}.sh; fi;
-  - make $TARGET
+script: make $TARGET
 
 after_success:
-  - if [ -x ${SCRIPTS_FOLDER}/after_success_${TARGET}.sh ]; then ${SCRIPTS_FOLDER}/after_success_${TARGET}.sh; fi;
+- if [ -x ${SCRIPTS_FOLDER}/after_success_${TARGET}.sh ]; then ${SCRIPTS_FOLDER}/after_success_${TARGET}.sh; fi;
