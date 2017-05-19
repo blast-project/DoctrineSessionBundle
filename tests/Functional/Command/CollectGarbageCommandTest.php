@@ -2,12 +2,6 @@
 namespace Blast\Tests\Functional;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-/*
-use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Component\Console\Output\ConsoleOutput;
-use Symfony\Component\Console\Input\ArrayInput;
-use Blast\DoctrineSessionBundle\Command\CollectGarbageCommand;
-*/
 use Blast\TestsBundle\Functional\BlastTestCase;
 
 class CollectGarbageCommandTest extends BlastTestCase
@@ -19,8 +13,8 @@ class CollectGarbageCommandTest extends BlastTestCase
         /**
          * @todo: grrr cacheClear need the database...
          */
-        var_dump($this->cacheClear());
-        var_dump($this->updateSchema());
+        $this->cacheClear();
+        $this->updateSchema();
         $this->validateSchema();
     }
     
