@@ -2,43 +2,26 @@
 namespace Blast\Tests\Functional;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+/*
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Input\ArrayInput;
 use Blast\DoctrineSessionBundle\Command\CollectGarbageCommand;
+*/
+use Blast\TestsBundle\Functional\BlastTestCase;
 
-class CollectGarbageCommandTest extends BlastTest
+class CollectGarbageCommandTest extends BlastTestCase
 {
-    /**
-     * @var CollectGarbageCommand
-     */
-    protected $object;
-    protected $application;
-    protected $input;
-    protected $output;
-   
     protected function setUp()
     {
+        parent::setUp();
         // $this->createDatabase();
         /**
          * @todo: grrr cacheClear need the database...
          */
-        $this->cacheClear();
-        $this->updateSchema();
+        var_dump($this->cacheClear());
+        var_dump($this->updateSchema());
         $this->validateSchema();
-        // parent::setUp();
-        static::bootKernel();
-
-        $this->object = new CollectGarbageCommand();
-        $this->application = new Application(self::$kernel);
-        $this->application->add($this->object);
-
-        /**
-         * @todo: need a simple way to add session and check if it is well garbaged
-         */
-        $this->markTestSkipped(
-            'need a simple way to add session and check session'
-        );
     }
     
     protected function tearDown()
@@ -49,29 +32,20 @@ class CollectGarbageCommandTest extends BlastTest
     public function testCommand()
     {
         /**
-         * @todo : should add some session before purge test
-         * @todo : should find a way to test all availlable option
+         * @todo: need a simple way to add session and check if it is well garbaged
+         *
          */
-        $this->input = new ArrayInput(array(
+        $this->launchCommand([
             'command' => 'blast:session:collect-garbage',
             '--all' => true,
-        ));
-        $this->output = new ConsoleOutput();
-        $this->object->run($this->input, $this->output);
+        ]);
 
         /**
          * @todo : should check if there are session in database or not
          */
-        $this->input = new ArrayInput(array(
+        $this->launchCommand([
             'command' => 'blast:session:collect-garbage',
             'limit' => '3',
-        ));
-        $this->output = new ConsoleOutput();
-        $this->object->run($this->input, $this->output);
-
-        //        if (function_exists('xdebug_disable')) {
-        //    xdebug_disable();
-        //    var_dump($this->output);
-        // }
+        ]);
     }
 }
