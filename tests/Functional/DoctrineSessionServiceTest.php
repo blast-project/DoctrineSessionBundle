@@ -2,29 +2,17 @@
 
 namespace  Blast\DoctrineSessionBundle\Tests\Functional;
 
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\DependencyInjection\Container;
+use Blast\TestsBundle\Functional\BlastTestCase;
 
-class BlastDoctrineSessionServiceTest extends KernelTestCase
+class BlastDoctrineSessionServiceTest extends BlastTestCase
 {
-    protected $container;
-    
     protected function setUp()
     {
-        static::bootKernel();
-        
-        /** @var Container $container */
-        $this->container = self::$kernel->getContainer();
+        parent::setUp();
     }
     
     public function testServicesAreInitializable()
     {
-        $serviceIds = array_filter($this->container->getServiceIds(), function ($serviceId) {
-            return 0 === strpos($serviceId, ' blast_doctrine');
-        });
-        
-        foreach ($serviceIds as $serviceId) {
-            $this->assertNotNull($this->container->get($serviceId));
-        }
+        $this->isServicesAreInitializable('blast_doctrine_session');
     }
 }
