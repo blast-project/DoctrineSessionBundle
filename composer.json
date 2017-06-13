@@ -4,15 +4,15 @@
     "description": "Store your Symfony sessions in database through doctrine",
     "require": {
         "php": ">=5.6",
-        "symfony/symfony": "3.2.*",
-	"doctrine/doctrine-bundle": "^1.6"
+        "symfony/symfony": ">=3.2",
+	"doctrine/doctrine-bundle": ">=1.6"
     },
     "require-dev": {
-	"symfony/phpunit-bridge": "3.2.*",
-	"sonata-project/doctrine-orm-admin-bundle": "^3.1",
-	"blast-project/core-bundle": "^0.4",
-        "blast-project/tests-bundle": "^0.4@dev",
-	"symfony/console": "3.2.*"
+	"symfony/phpunit-bridge": ">=3.2",
+	"sonata-project/doctrine-orm-admin-bundle": ">=3.1",
+	"blast-project/core-bundle": ">=0.4",
+        "blast-project/tests-bundle": ">=0.4",
+	"symfony/console": ">=3.2"
     },
     "scripts": {
 	"test": [
