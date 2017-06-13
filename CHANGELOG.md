@@ -1,11 +1,14 @@
 # Change Log
 
-## [Unreleased](https://github.com/blast-project/DoctrineSessionBundle/tree/HEAD)
-
-[Full Changelog](https://github.com/blast-project/DoctrineSessionBundle/compare/0.4.2...HEAD)
+## [0.4.3](https://github.com/blast-project/DoctrineSessionBundle/tree/0.4.3) (2017-06-13)
+[Full Changelog](https://github.com/blast-project/DoctrineSessionBundle/compare/0.4.2...0.4.3)
 
 **Merged pull requests:**
 
+- DevKit updates for DoctrineSessionBundle [\#14](https://github.com/blast-project/DoctrineSessionBundle/pull/14) ([BlastCI](https://github.com/BlastCI))
+- Align Branch [\#11](https://github.com/blast-project/DoctrineSessionBundle/pull/11) ([FanchTheSystem](https://github.com/FanchTheSystem))
+- DevKit updates for DoctrineSessionBundle [\#10](https://github.com/blast-project/DoctrineSessionBundle/pull/10) ([BlastCI](https://github.com/BlastCI))
+- DevKit updates for DoctrineSessionBundle [\#9](https://github.com/blast-project/DoctrineSessionBundle/pull/9) ([BlastCI](https://github.com/BlastCI))
 - Add Phpunit First Tests [\#5](https://github.com/blast-project/DoctrineSessionBundle/pull/5) ([FanchTheSystem](https://github.com/FanchTheSystem))
 
 ## [0.4.2](https://github.com/blast-project/DoctrineSessionBundle/tree/0.4.2) (2017-05-04)
