@@ -10,7 +10,7 @@
     "require-dev": {
 	"symfony/phpunit-bridge": ">=3.2",
 	"sonata-project/doctrine-orm-admin-bundle": ">=3.1",
-	"blast-project/core-bundle": "dev-wip-lisem",
+	"blast-project/core-bundle": ">=0.4",
         "blast-project/tests-bundle": ">=0.4",
 	"symfony/console": ">=3.2"
     },
