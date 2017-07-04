@@ -1,7 +1,13 @@
 <?php
 
 /*
- * Credits to ShapeCode for this handler https://github.com/shapecode
+ * This file is part of the Blast Project package.
+ *
+ * Copyright (C) 2015-2017 Libre Informatique
+ *
+ * This file is licenced under the GNU LGPL v3.
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
  */
 
 namespace Blast\DoctrineSessionBundle\Handler;
@@ -10,7 +16,7 @@ use Blast\DoctrineSessionBundle\Entity\Session;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * Class DoctrineORMHandler
+ * Class DoctrineORMHandler.
  */
 class DoctrineORMHandler implements \SessionHandlerInterface
 {
@@ -18,9 +24,8 @@ class DoctrineORMHandler implements \SessionHandlerInterface
      * @var EntityManagerInterface
      */
     protected $entityManager;
-    
+
     /**
-     *
      * @var EntityRepository
      */
     protected $repository;
@@ -35,7 +40,7 @@ class DoctrineORMHandler implements \SessionHandlerInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function close()
     {
@@ -43,12 +48,12 @@ class DoctrineORMHandler implements \SessionHandlerInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function destroy($sessionId)
     {
         $qb = $this->repository->createQueryBuilder('s');
-         
+
         return $qb
             ->delete()
             ->where($qb->expr()->eq('s.sessionId', ':sessionId'))
@@ -57,26 +62,26 @@ class DoctrineORMHandler implements \SessionHandlerInterface
             ->execute()
             ;
     }
-    
+
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function gc($maxLifetime)
     {
         $qb = $this->repository->createQueryBuilder('s');
-            
+
         $qb->delete()
             ->where($qb->expr()->lt('s.expiresAt', ':now'))
             ->setParameter('now', new \DateTime())
             ->getQuery()
             ->execute()
             ;
-        
+
         return true;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function open($savePath, $sessionId)
     {
@@ -84,38 +89,38 @@ class DoctrineORMHandler implements \SessionHandlerInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function read($sessionId)
     {
         $session = $this->getSession($sessionId);
-        
+
         if (!$session || is_null($session->getData())) {
             return '';
         }
-        
+
         $resource = $session->getData();
-        
+
         return is_resource($resource) ? stream_get_contents($resource) : $resource;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function write($sessionId, $sessionData)
     {
         $maxLifetime = (int) ini_get('session.gc_maxlifetime');
         $session = $this->getSession($sessionId);
         $expiry = new \DateTime();
-        
-        $expiry->add(new \DateInterval('PT' . $maxLifetime . 'S'));
+
+        $expiry->add(new \DateInterval('PT'.$maxLifetime.'S'));
 
         $session->setData($sessionData);
         $session->setExpiresAt($expiry);
 
         $this->entityManager->persist($session);
         $this->entityManager->flush($session);
-        
+
         return true;
     }
 
@@ -128,9 +133,9 @@ class DoctrineORMHandler implements \SessionHandlerInterface
     {
         $className = $this->repository->getClassName();
         $session = new $className();
-        
+
         $session->setSessionId($sessionId);
-        
+
         return $session;
     }
 
@@ -142,13 +147,13 @@ class DoctrineORMHandler implements \SessionHandlerInterface
     protected function getSession($sessionId)
     {
         $session = $this->repository->findOneBy([
-            'sessionId' => $sessionId
+            'sessionId' => $sessionId,
         ]);
-        
+
         if (!$session) {
             $session = $this->getNewInstance($sessionId);
         }
-        
+
         return $session;
     }
 }

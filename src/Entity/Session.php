@@ -1,9 +1,19 @@
 <?php
 
+/*
+ * This file is part of the Blast Project package.
+ *
+ * Copyright (C) 2015-2017 Libre Informatique
+ *
+ * This file is licenced under the GNU LGPL v3.
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 namespace Blast\DoctrineSessionBundle\Entity;
 
 /**
- * Session
+ * Session.
  */
 class Session implements SessionInterface
 {
@@ -47,18 +57,21 @@ class Session implements SessionInterface
 
     /**
      * @param string $id
-     * @return object  this Entity
+     *
+     * @return object this Entity
      */
     public function setId($id)
     {
         $this->$id = $id;
+
         return $this;
     }
 
     /**
-     * Set sessionId
+     * Set sessionId.
      *
      * @param string $sessionId
+     *
      * @return Session
      */
     public function setSessionId($sessionId)
@@ -69,7 +82,7 @@ class Session implements SessionInterface
     }
 
     /**
-     * Get sessionId
+     * Get sessionId.
      *
      * @return string
      */
@@ -79,9 +92,10 @@ class Session implements SessionInterface
     }
 
     /**
-     * Set data
+     * Set data.
      *
      * @param string $data
+     *
      * @return Session
      */
     public function setData($data)
@@ -92,7 +106,7 @@ class Session implements SessionInterface
     }
 
     /**
-     * Get data
+     * Get data.
      *
      * @return string
      */
@@ -122,9 +136,10 @@ class Session implements SessionInterface
     }
 
     /**
-     * Set expiresAt
+     * Set expiresAt.
      *
      * @param string $expiresAt
+     *
      * @return Session
      */
     public function setExpiresAt($expiresAt)
@@ -135,7 +150,7 @@ class Session implements SessionInterface
     }
 
     /**
-     * Get expiresAt
+     * Get expiresAt.
      *
      * @return string
      */

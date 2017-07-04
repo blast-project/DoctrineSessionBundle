@@ -1,4 +1,15 @@
 <?php
+
+/*
+ * This file is part of the Blast Project package.
+ *
+ * Copyright (C) 2015-2017 Libre Informatique
+ *
+ * This file is licenced under the GNU LGPL v3.
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 namespace Blast\DoctrineSessionBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -10,7 +21,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class CollectGarbageCommand extends ContainerAwareCommand
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function configure()
     {
@@ -20,14 +31,14 @@ class CollectGarbageCommand extends ContainerAwareCommand
             ->addOption('all', 'a', InputOption::VALUE_NONE, 'Will clear ALL sessions')
             ->addArgument('limit', InputArgument::OPTIONAL, 'Sessions expired {limit} ago will be removed. (examples: 1 hour, 5 days)');
     }
-    
+
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $sessionClass = $this->getContainer()->getParameter('blast_doctrine_session_class');
-        
+
         $qb = $this
             ->getContainer()
             ->get('doctrine')
@@ -36,12 +47,12 @@ class CollectGarbageCommand extends ContainerAwareCommand
             ->createQueryBuilder('s')
             ->delete()
             ;
-        
+
         if (!$input->getOption('all')) {
             if (empty($input->getArgument('limit'))) {
                 $input->setArgument('limit', '1 hour');
             }
-            
+
             $limit = new \DateTime();
             $limit->sub(\DateInterval::createFromDateString($input->getArgument('limit')));
 
@@ -50,7 +61,7 @@ class CollectGarbageCommand extends ContainerAwareCommand
                 ->setParameter('limit', $limit)
                 ;
         }
-            
+
         $qb
             ->getQuery()
             ->execute()
