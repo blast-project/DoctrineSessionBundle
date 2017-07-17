@@ -1,7 +1,17 @@
 <?php
+
+/*
+ * This file is part of the Blast Project package.
+ *
+ * Copyright (C) 2015-2017 Libre Informatique
+ *
+ * This file is licenced under the GNU LGPL v3.
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ */
+
 namespace Blast\Tests\Functional;
 
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Blast\TestsBundle\Functional\BlastTestCase;
 
 class CollectGarbageCommandTest extends BlastTestCase
@@ -10,14 +20,14 @@ class CollectGarbageCommandTest extends BlastTestCase
     {
         parent::setUp();
         // $this->createDatabase();
-        /**
+        /*
          * @todo: grrr cacheClear need the database...
          */
         $this->cacheClear();
         $this->updateSchema();
         $this->validateSchema();
     }
-    
+
     protected function tearDown()
     {
         // $this->dropDatabase();
@@ -25,7 +35,7 @@ class CollectGarbageCommandTest extends BlastTestCase
 
     public function testCommand()
     {
-        /**
+        /*
          * @todo: need a simple way to add session and check if it is well garbaged
          *
          */
@@ -34,7 +44,7 @@ class CollectGarbageCommandTest extends BlastTestCase
             '--all' => true,
         ]);
 
-        /**
+        /*
          * @todo : should check if there are session in database or not
          */
         $this->launchCommand([
