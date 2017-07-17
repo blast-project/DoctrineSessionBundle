@@ -113,7 +113,7 @@ class DoctrineORMHandler implements \SessionHandlerInterface
         $session = $this->getSession($sessionId);
         $expiry = new \DateTime();
 
-        $expiry->add(new \DateInterval('PT'.$maxLifetime.'S'));
+        $expiry->add(new \DateInterval('PT' . $maxLifetime . 'S'));
 
         $session->setData($sessionData);
         $session->setExpiresAt($expiry);
