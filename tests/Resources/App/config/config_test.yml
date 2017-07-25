@@ -4,13 +4,12 @@ imports:
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver: pdo_mysql
+        driver: pdo_pgsql
         host: 127.0.0.1
-        port: null
+        port: 5432
         dbname: travis
         user: travis
         password: ~
         charset: UTF8
     orm:
         auto_mapping: true
-
