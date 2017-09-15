@@ -5,34 +5,34 @@
     "require": {
         "php": ">=5.6",
         "symfony/symfony": ">=3.2",
-	"doctrine/doctrine-bundle": ">=1.6"
+        "doctrine/doctrine-bundle": ">=1.6"
     },
     "require-dev": {
-	"symfony/phpunit-bridge": ">=3.2",
-	"sonata-project/doctrine-orm-admin-bundle": ">=3.1",
-	"blast-project/core-bundle": ">=0.4",
-        "blast-project/tests-bundle": ">=0.4",
-	"symfony/console": ">=3.2"
+        "symfony/phpunit-bridge": ">=3.2",
+        "sonata-project/doctrine-orm-admin-bundle": ">=3.1",
+        "blast-project/core-bundle": "self.version",
+        "blast-project/tests-bundle": "dev-master",
+        "symfony/console": ">=3.2"
     },
     "scripts": {
-	"test": [
+        "test": [
 	    "phpunit"
 	],
-	"test-full": [
+        "test-full": [
 	    "@composer install",
 	    "@test-mysql",
 	    "@test-sqlite",
 	    "@test-postgresql"
 	],
-	"test-mysql": [
+        "test-mysql": [
 	    "php -r \"copy('tests/Resources/App/config/config_test_mysql.yml', 'tests/Resources/App/config/config_test.yml');\"",
 	    "@test"
         ],
-	"test-postgresql": [
+        "test-postgresql": [
 	    "php -r \"copy('tests/Resources/App/config/config_test_postgresql.yml', 'tests/Resources/App/config/config_test.yml');\"",
 	    "@test"
         ],
-	"test-sqlite": [
+        "test-sqlite": [
 	    "php -r \"copy('tests/Resources/App/config/config_test_sqlite.yml', 'tests/Resources/App/config/config_test.yml');\"",
 	    "@test"
         ]
