@@ -65,6 +65,7 @@
             "dev-wip-lisem": "0.4.x-dev"
         }
     },
+    "version": "dev-wip-lisem",
     "suggest": {
         "blast-project/core-bundle": "Define sonata admins in yml and more"
     }
