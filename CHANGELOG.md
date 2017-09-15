@@ -1,17 +1,20 @@
 # Change Log
 
+## [0.5.1](https://github.com/blast-project/DoctrineSessionBundle/tree/0.5.1) (2017-09-15)
+[Full Changelog](https://github.com/blast-project/DoctrineSessionBundle/compare/0.4.5...0.5.1)
+
+**Merged pull requests:**
+
+- Lisem fix & features [\#26](https://github.com/blast-project/DoctrineSessionBundle/pull/26) ([FanchTheSystem](https://github.com/FanchTheSystem))
+- Lisem fix & features [\#25](https://github.com/blast-project/DoctrineSessionBundle/pull/25) ([FanchTheSystem](https://github.com/FanchTheSystem))
+
 ## [0.4.5](https://github.com/blast-project/DoctrineSessionBundle/tree/0.4.5) (2017-07-26)
 [Full Changelog](https://github.com/blast-project/DoctrineSessionBundle/compare/0.4.4...0.4.5)
 
 **Merged pull requests:**
 
-- DevKit updates for DoctrineSessionBundle [\#22](https://github.com/blast-project/DoctrineSessionBundle/pull/22) ([BlastCI](https://github.com/BlastCI))
 - Lisem fix & features [\#20](https://github.com/blast-project/DoctrineSessionBundle/pull/20) ([FanchTheSystem](https://github.com/FanchTheSystem))
-- DevKit updates for DoctrineSessionBundle [\#19](https://github.com/blast-project/DoctrineSessionBundle/pull/19) ([BlastCI](https://github.com/BlastCI))
-- DevKit updates for DoctrineSessionBundle [\#18](https://github.com/blast-project/DoctrineSessionBundle/pull/18) ([BlastCI](https://github.com/BlastCI))
 - Wip lisem [\#17](https://github.com/blast-project/DoctrineSessionBundle/pull/17) ([FanchTheSystem](https://github.com/FanchTheSystem))
-- DevKit updates for DoctrineSessionBundle [\#16](https://github.com/blast-project/DoctrineSessionBundle/pull/16) ([BlastCI](https://github.com/BlastCI))
-- DevKit updates for DoctrineSessionBundle [\#15](https://github.com/blast-project/DoctrineSessionBundle/pull/15) ([BlastCI](https://github.com/BlastCI))
 
 ## [0.4.4](https://github.com/blast-project/DoctrineSessionBundle/tree/0.4.4) (2017-06-27)
 [Full Changelog](https://github.com/blast-project/DoctrineSessionBundle/compare/0.4.3...0.4.4)
@@ -21,10 +24,7 @@
 
 **Merged pull requests:**
 
-- DevKit updates for DoctrineSessionBundle [\#14](https://github.com/blast-project/DoctrineSessionBundle/pull/14) ([BlastCI](https://github.com/BlastCI))
 - Align Branch [\#11](https://github.com/blast-project/DoctrineSessionBundle/pull/11) ([FanchTheSystem](https://github.com/FanchTheSystem))
-- DevKit updates for DoctrineSessionBundle [\#10](https://github.com/blast-project/DoctrineSessionBundle/pull/10) ([BlastCI](https://github.com/BlastCI))
-- DevKit updates for DoctrineSessionBundle [\#9](https://github.com/blast-project/DoctrineSessionBundle/pull/9) ([BlastCI](https://github.com/BlastCI))
 - Add Phpunit First Tests [\#5](https://github.com/blast-project/DoctrineSessionBundle/pull/5) ([FanchTheSystem](https://github.com/FanchTheSystem))
 
 ## [0.4.2](https://github.com/blast-project/DoctrineSessionBundle/tree/0.4.2) (2017-05-04)
@@ -33,8 +33,6 @@
 **Merged pull requests:**
 
 - Update for lint [\#4](https://github.com/blast-project/DoctrineSessionBundle/pull/4) ([FanchTheSystem](https://github.com/FanchTheSystem))
-- DevKit updates for DoctrineSessionBundle [\#3](https://github.com/blast-project/DoctrineSessionBundle/pull/3) ([BlastCI](https://github.com/BlastCI))
-- DevKit updates for DoctrineSessionBundle [\#1](https://github.com/blast-project/DoctrineSessionBundle/pull/1) ([BlastCI](https://github.com/BlastCI))
 
 ## [0.3](https://github.com/blast-project/DoctrineSessionBundle/tree/0.3) (2017-03-27)
 [Full Changelog](https://github.com/blast-project/DoctrineSessionBundle/compare/0.2...0.3)
