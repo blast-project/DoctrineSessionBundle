@@ -43,14 +43,65 @@ class AppKernel extends Kernel
 }
 ```
 
+Doctrine
+--------
+
+Configure your Doctrine connections
+
+```yml
+# app/config/config.yml
+
+doctrine:
+    dbal:
+        default_connection: default
+        connections:
+            default:
+                driver:   pdo_pgsql
+                host:     "%database_host%"
+                port:     "%database_port%"
+                dbname:   "%database_name%"
+                user:     "%database_user%"
+                password: "%database_password%"
+                charset:  UTF8
+            session: # This will be the connection used by this bundle
+                driver:   pdo_pgsql
+                host:     "%database_host%" # Please adapt to your needs if you're using another database for sessions
+                port:     "%database_port%"
+                dbname:   "%database_name%"
+                user:     "%database_user%"
+                password: "%database_password%"
+                charset:  UTF8
+
+    orm:
+        default_entity_manager: default
+        auto_generate_proxy_classes: "%kernel.debug%"
+        entity_managers:
+            default:
+                connection: default
+                naming_strategy: doctrine.orm.naming_strategy.underscore
+                auto_mapping: true
+                mappings:
+                    # Add here your mapping for your default entities
+                    # Example below :
+                    BlastBaseEntitiesBundle:
+                        type: yml
+            session:
+                connection: session
+                naming_strategy: doctrine.orm.naming_strategy.underscore
+                auto_mapping: false # Only one entity manager can have auto_mappping set to true
+                mappings:
+                    BlastDoctrineSessionBundle:
+                        type: yml
+```
+
 Database
 --------
 
-  $ php bin/console doctrine:database:create
+  $ php bin/console doctrine:database:create --connection=session
 
 Or
 
-  $ php bin/console doctrine:schema:update --force
+  $ php bin/console doctrine:schema:update --force --connection=session
 
 Usage
 -----
