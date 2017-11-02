@@ -94,6 +94,18 @@ doctrine:
                         type: yml
 ```
 
+Configure the framework session handler :
+
+```yml
+# app/config/config.yml
+
+framework:
+    # [...]
+    session:
+        handler_id: blast_doctrine_handler
+```
+
+
 Database
 --------
 
