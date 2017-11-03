@@ -1,5 +1,14 @@
 # Change Log
 
+## [0.6.4](https://github.com/blast-project/DoctrineSessionBundle/tree/0.6.4) (2017-11-03)
+[Full Changelog](https://github.com/blast-project/DoctrineSessionBundle/compare/0.5.2...0.6.4)
+
+**Merged pull requests:**
+
+- Lisem fix & features [\#31](https://github.com/blast-project/DoctrineSessionBundle/pull/31) ([FanchTheSystem](https://github.com/FanchTheSystem))
+- DevKit updates for DoctrineSessionBundle [\#30](https://github.com/blast-project/DoctrineSessionBundle/pull/30) ([BlastCI](https://github.com/BlastCI))
+- DevKit updates for DoctrineSessionBundle [\#28](https://github.com/blast-project/DoctrineSessionBundle/pull/28) ([BlastCI](https://github.com/BlastCI))
+
 ## [0.5.2](https://github.com/blast-project/DoctrineSessionBundle/tree/0.5.2) (2017-10-19)
 [Full Changelog](https://github.com/blast-project/DoctrineSessionBundle/compare/0.5.1...0.5.2)
 
