@@ -62,6 +62,5 @@
     },
     "suggest": {
         "blast-project/core-bundle": "Define sonata admins in yml and more"
-    },
-    "version": "0.6.4"
+    }
 }
